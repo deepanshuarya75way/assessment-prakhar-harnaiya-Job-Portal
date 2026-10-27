@@ -91,7 +91,13 @@ const Viewapplications = () => {
                   Resume <img src={assets.resume_download_icon} alt="" />
                   </a></td>
                   <td className='py-2 px-4 border-b relative'>
-                    {applicant.status==="Pending"
+                    {applicant.status==="Pending" && (
+                    <button onClick={()=> handlewithdraw(application._id)}
+                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    >
+                      withdraw
+                      </button>
+                    )}
                     ? <div className='relative inline-block text-left group'>
                       <button className='text-gray-500 action-button'>...</button>
                       <div className='z-10 hidden absolute right-0 md:left-0 top-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow group-hover:block'>

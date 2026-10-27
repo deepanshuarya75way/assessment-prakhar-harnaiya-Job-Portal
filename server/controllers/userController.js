@@ -1,9 +1,38 @@
 import JobApplication from "../models/jobApplication.js"
+export const widthdrawApplication = async(req, res)=>{
+  try{
+    const {id} =req.params;
+    const JobApplication = await JobApplication.findById(id);
+
+    if (!JobApplication){
+      return res.status(404).json({success: false, message:"Application not found"});
+    }
+    if (application.candidate.toString()!==req.user.id.toString()){
+      return res.status(403).json({success:false, message:"You cannot widthdraw the application"});
+    }
+
+    if (application.status!=="Pending"){
+      return res.status(400).json({success:false,message:"Only pending applications can be widthdraw"});
+    }
+    application.status= "Widthdraw";
+    await application.save();
+    return res.status(200).json({success:true, message:"Application widthdraw successfully", application});
+
+
+
+
+  }
+  catch(error){
+       console.error("Widthdraw application error:", error);
+       return res.status(500).json({success: false,message: "Failed to widthraw application"});
+  }
+};
 import User from "../models/User.js"
 import {v2 as cloudinary } from "cloudinary"
 import Job from "../models/jobs.js"
 import bcrypt from 'bcrypt'
 import generateToken from '../utils/generateToken.js'
+import { application } from "express";
 
 
 // Get user data
