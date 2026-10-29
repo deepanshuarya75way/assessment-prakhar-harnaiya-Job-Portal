@@ -21,6 +21,34 @@ const Application = () => {
 
   const {backendUrl,userData, userApplications, fetchUserdata, userToken, fetchUserApplications}=useContext(AppContext)
 
+  // Handle Withdraw
+
+  const handleWithdraw= async(applicaationId)=>{
+    const confirmed=window.confirm("Are you sure you want to withdraw this application?");
+    if (!confirmed)
+      return;
+    try{
+      const {data}=await axios.patch(`${backendUrl}/api/users/applications/${applicaationId}/withdraw`, 
+        {},
+        {
+          headers:{
+            token:userToken
+          }
+        }
+      );
+      if (data.success){
+        toast.success(data.message);
+        await fetchUserApplications();
+      }
+      else {
+        toast.error(data.message);
+      }
+    }
+    catch(error){
+      toast.error(error.response?.data?.message || "Unable to withdraw application");
+    }
+  };
+
   const updateResume=async ()=>{
      try {
       const formData=new FormData()
@@ -108,9 +136,14 @@ const Application = () => {
                   <td className='py-2 px-4 border-b max-sm:hidden'>{job.jobId.location}</td>
                   <td className='py-2 px-4 border-b max-sm:hidden'>{moment(job.date).format('ll')}</td>
                   <td className='py-2 px-4 border-b'>
+                  <div className='flex flex- col items-start gap-2'>
                     <span className={`${job.status === 'Accepted' ? 'bg-green-100 text-green-800' : job.status === 'Rejected' ? 'bg-red-100' : 'bg-blue-100'} px-4 py-1.5 rounded`}>
                          {job.status}
                     </span>
+                    {job.status==='Pending' && (<button onclick={()=> handleWithdraw (job._id)} className='bg-red-500 text-white px-3 py-1 rounded hower: bg-red-600'>Withdraw</button>)}
+
+                  </div>
+                    
                    </td>
                  </tr>
           ))}

@@ -1,5 +1,5 @@
 import express from 'express'
-import { applyForJob, getUserData, getUserJobApplications, updateUserResume, registerUser, loginUser } from '../controllers/userController.js'
+import { applyForJob, getUserData, getUserJobApplications, updateUserResume, registerUser, loginUser, withdrawUserApplication } from '../controllers/userController.js'
 import upload from '../config/multer.js'
 import { protectUser } from '../middleware/authMiddleware.js'
 
@@ -19,6 +19,9 @@ router.post('/apply', protectUser, applyForJob)
 
 // get applied jobs
 router.get('/applications', protectUser, getUserJobApplications)
+
+// Withdraw pending application
+router.patch('/applications/:id/withdraw', protectUser, withdrawUserApplication )
 
 // update resume
 router.post('/update-resume', protectUser, upload.single('resume'), updateUserResume)
