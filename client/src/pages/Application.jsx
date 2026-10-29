@@ -140,7 +140,8 @@ const Application = () => {
                     <span className={`${job.status === 'Accepted' ? 'bg-green-100 text-green-800' : job.status === 'Rejected' ? 'bg-red-100' : 'bg-blue-100'} px-4 py-1.5 rounded`}>
                          {job.status}
                     </span>
-                    {job.status==='Pending' && (<button onClick={()=> handleWithdraw (job._id)} className='bg-red-500 text-white px-3 py-1 rounded hower: bg-red-600'>Withdraw</button>)}
+                    {job.status==='Pending' && (<button onClick={()=> handleWithdraw (job._id)} 
+                    className='bg-red-500 text-white px-3 py-1 rounded hower: bg-red-600'>Withdraw</button>)}
 
                   </div>
                     

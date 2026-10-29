@@ -92,7 +92,7 @@ const Viewapplications = () => {
                   </a></td>
                   <td className='py-2 px-4 border-b relative'>
                     {applicant.status==="Pending"
-                    ? <div className='relative inline-block text-left group'>
+                    ?  <div className='relative inline-block text-left group'>
                       <button className='text-gray-500 action-button'>...</button>
                       <div className='z-10 hidden absolute right-0 md:left-0 top-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow group-hover:block'>
                         <button onClick={()=>changeJobApplicationStatus(applicant._id,'Accepted')} className='block w-full text-left py-2 text-blue-500 hover:bg-gray-100'>Accept</button>
